@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="GTluck:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/GTluck_jar</output-path>
+    <root id="archive" name="GTluck.jar">
+      <element id="module-output" name="GTluck" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/beautyeye_lnf.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
