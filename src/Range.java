@@ -2,18 +2,19 @@ import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.JFormattedTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.FontUIResource;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.text.ParseException;
 
 public class Range extends JFrame {
     JLabel lbmin = new JLabel("最小值");
     JLabel lbmax = new JLabel("最大值");
-    JLabel label1 = new JLabel("请选择待加密或解密的文件：");
-    JTextField sourcefile = new JTextField(); // 选择待加密或解密文件路径的文本域
-    JButton buttonBrowseSource = new JButton("浏览"); // 浏览按钮
+    public static JFileChooser chooser = new JFileChooser();
+    public static JTextField sourcefile = new JTextField(); // 选择待加密或解密文件路径的文本域
+    public static JButton buttonBrowseSource = new JButton("浏览"); // 浏览按钮
     JButton bt = new JButton("确定");
-    JLabel msg = null;
     JPanel jp1 = new JPanel();
     boolean flag = true;
     java.net.URL imgURL = GoodLuck_1.class.getResource("pic/ico2.png");
@@ -32,6 +33,12 @@ public class Range extends JFrame {
         frame.setIconImage(icon1.getImage());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        sourcefile.setEditable(false);
+        buttonBrowseSource.addActionListener(new BrowseAction());
+//        sourcefile.getDocument().addDocumentListener(new TextFieldAction());// 为源文件文本域绑定事件，如果文件是.txt类型，则禁用解密按钮；如果是.kcd文件，则禁用加密按钮。
+//    sourcefile.setEditable(false);// 设置源文件文本域不可手动修改
+//    targetfile.setEditable(false);// 设置目标位置文本域不可手动修改
+
 
 
         // 实例化FlowLayout流式布局类的对象，指定对齐方式为居中对齐，组件之间的间隔为5个像素
@@ -79,7 +86,7 @@ public class Range extends JFrame {
         });
         frame.add(textMin);
 //        JButton
-
+        frame.add(lbmax);
         //实例化JPasswordField
         JFormattedTextField textMax = new JFormattedTextField(new java.text.DecimalFormat("#0"));
         //设置大小
@@ -105,7 +112,31 @@ public class Range extends JFrame {
 
         frame.add(textMax);
         //实例化JButton组件
-        JButton bt = new JButton();
+        frame.add(sourcefile);
+        frame.add(buttonBrowseSource);
+        chooser.setDialogTitle("请选择excel文件");
+//        BrowseAction ba = new BrowseAction();
+//
+//        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+//                "文本文件(*.txt;*.kcd)", "txt", "kcd");
+//        chooser.setFileFilter(filter);
+//        int returnVal = chooser.showOpenDialog(null);
+//        if (returnVal == JFileChooser.APPROVE_OPTION) {
+//            String filepath = chooser.getSelectedFile().getPath();
+//            sourcefile.setText(filepath);
+//        }
+//        public void actionPerformed(ActionEvent e) {
+//        chooser.setFileSelectionMode(0);
+////打开文件浏览器，点击取消则返回1
+//        int status = chooser.showOpenDialog(null);
+//        if(status == 1){
+//            return;
+//        }else {
+////读取选择器选择到的文件
+//            File file = chooser.getSelectedFile();
+//        }
+
+
         //设置按钮的显示内容
         Dimension dim2 = new Dimension(100, 30);
         //设置按钮的大小
@@ -114,7 +145,7 @@ public class Range extends JFrame {
         frame.add(bt);
 
         frame.setVisible(true);// 设置窗体为可见
-        RangeController ll = new RangeController(frame, textMin, textMax);
+        RangeController ll = new RangeController(frame, textMin, textMax,sourcefile);
         //对当前窗体添加监听方法
         bt.addActionListener(ll);//监控按钮
 

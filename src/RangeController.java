@@ -8,16 +8,20 @@ public class RangeController implements ActionListener{
     private javax.swing.JFormattedTextField jt;//账号输入框对象
     private javax.swing.JFormattedTextField jp;//密码输入框对象
     private javax.swing.JFrame Range;//定义一个窗体对象
-    public RangeController(javax.swing.JFrame Range,javax.swing.JFormattedTextField jt,javax.swing.JFormattedTextField jp) {
+    private javax.swing.JTextField jtf;
+    public RangeController(javax.swing.JFrame Range,javax.swing.JFormattedTextField jt,javax.swing.JFormattedTextField jp,javax.swing.JTextField jtf) {
         this.Range=Range;//获取Range界面
         this.jt=jt;//获取登录界面中的min输入框对象
         this.jp=jp;// ;//获取登录界面中的max输入框对象
+        this.jtf=jtf;
     }
 
     public void actionPerformed(ActionEvent e) {
         String textFile2 = jp.getText();
+        String path = jtf.getText();
+//        System.out.println(path);
         //利用get方法来获取min和max对象的文本信息，并用equal方法进行判断。最好不要用==，用==这个地方验证不过去。
-        if(jt.getText().equals("")&&jt.getText().length()==0||textFile2.equals("")&&jp.getText().length()==0) {
+        if(jt.getText().equals("")&&jt.getText().length()==0||textFile2.equals("")&&jp.getText().length()==0&&path.equals("")) {
             JOptionPane.showMessageDialog(null, "请输入正确的数字", "Error", JOptionPane.ERROR_MESSAGE);
         }
         else{
